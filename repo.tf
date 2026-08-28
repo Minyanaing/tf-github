@@ -37,7 +37,7 @@ resource "github_branch_protection" "this" {
     required_approving_review_count = each.value.required_approving_review_count
   }
 
-  enforce_admins = false
+  enforce_admins = true
 
   depends_on = [github_repository.this]
 }
