@@ -24,6 +24,7 @@ locals {
         repo                             = repo
         branch                           = branch
         required_approving_review_count  = cfg.required_approving_review_count
+        required_status_checks           = cfg.required_status_checks
       }
     }
   ]...)
@@ -37,6 +38,14 @@ resource "github_branch_protection" "this" {
 
   required_pull_request_reviews {
     required_approving_review_count = each.value.required_approving_review_count
+  }
+
+  dynamic "required_status_checks" {
+    for_each = length(each.value.required_status_checks) > 0 ? [1] : []
+    content {
+      strict   = true
+      contexts = each.value.required_status_checks
+    }
   }
 
   enforce_admins = true
