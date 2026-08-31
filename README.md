@@ -2,6 +2,8 @@
 
 Manages GitHub repositories and their branch protection via Terraform, run through TFC workspace `terraform-github`.
 
+Full step-by-step setup guide (folder creation → tokens → console setup → first apply): [FULL_README.md](https://github.com/Minyanaing/tf-github/blob/main/FULL_README.md)
+
 ## Files
 
 | File | Purpose |
