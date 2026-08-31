@@ -19,14 +19,14 @@ resource "github_repository" "this" {
 
 locals {
   repo_branches = merge([
-    for repo, cfg in local.repositories : {
+    for repo, cfg in local.repositories : cfg.enable_branch_protection ? {
       for branch in cfg.branches : "${repo}:${branch}" => {
         repo                             = repo
         branch                           = branch
         required_approving_review_count  = cfg.required_approving_review_count
         required_status_checks           = cfg.required_status_checks
       }
-    }
+    } : {}
   ]...)
 }
 
