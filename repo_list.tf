@@ -5,6 +5,7 @@ locals {
       visibility                       = "public"
       description                      = "Manages GitHub org: repos, teams, access"
       branches                         = ["main"]
+      enable_branch_protection         = true
       required_approving_review_count  = 0
       required_status_checks           = [] # e.g. ["ci / build"] — GitHub Actions job names required to pass before merge
       has_issues                       = true
@@ -19,6 +20,7 @@ locals {
       visibility                       = "public"
       description                      = "Manages Terraform Cloud: projects, teams, workspaces"
       branches                         = ["main"]
+      enable_branch_protection         = true
       required_approving_review_count  = 0
       required_status_checks           = []
       has_issues                       = true
@@ -33,6 +35,7 @@ locals {
       visibility                       = "private"
       description                      = "Repo with practice codes for Workflows, dbt run on ECS for redshift, Snowflake dbt deployments"
       branches                         = ["main"]
+      enable_branch_protection         = false # private repo — needs GitHub Pro for branch protection on free plan
       required_approving_review_count  = 0
       required_status_checks           = []
       has_issues                       = true
@@ -48,6 +51,7 @@ locals {
     #   visibility                       = "private"
     #   description                      = "App with staged envs"
     #   branches                         = ["main", "main_qa", "main_prod"]
+    #   enable_branch_protection         = false
     #   required_approving_review_count  = 1
     #   required_status_checks           = ["ci / build"]
     #   has_issues                       = true
