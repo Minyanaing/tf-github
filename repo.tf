@@ -6,13 +6,15 @@ resource "github_repository" "this" {
   description = each.value.description
   auto_init   = false
 
-  has_issues   = true
-  has_projects = true
-  has_wiki     = true
+  has_issues   = each.value.has_issues
+  has_projects = each.value.has_projects
+  has_wiki     = each.value.has_wiki
 
-  allow_merge_commit = false
-  allow_rebase_merge = false
-  allow_squash_merge = true
+  allow_merge_commit = each.value.allow_merge_commit
+  allow_rebase_merge = each.value.allow_rebase_merge
+  allow_squash_merge = each.value.allow_squash_merge
+
+  delete_branch_on_merge = each.value.delete_branch_on_merge
 }
 
 locals {
@@ -22,6 +24,7 @@ locals {
         repo                             = repo
         branch                           = branch
         required_approving_review_count  = cfg.required_approving_review_count
+        required_status_checks           = cfg.required_status_checks
       }
     }
   ]...)
@@ -35,6 +38,14 @@ resource "github_branch_protection" "this" {
 
   required_pull_request_reviews {
     required_approving_review_count = each.value.required_approving_review_count
+  }
+
+  dynamic "required_status_checks" {
+    for_each = length(each.value.required_status_checks) > 0 ? [1] : []
+    content {
+      strict   = true
+      contexts = each.value.required_status_checks
+    }
   }
 
   enforce_admins = true
