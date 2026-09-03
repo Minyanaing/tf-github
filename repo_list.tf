@@ -31,7 +31,7 @@ locals {
       allow_squash_merge               = false
       delete_branch_on_merge           = true
     }
-    "data-platform" = {
+    "202507-aio-codes" = {
       visibility                       = "private"
       description                      = "Repo with practice codes for Workflows, dbt run on ECS for redshift, Snowflake dbt deployments"
       branches                         = ["main"]
